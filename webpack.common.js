@@ -31,14 +31,11 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpg|gif)$/i,
-        use: [{
-          loader: 'url-loader',
-          options: {
-            limit: 8192,
-            esModule: false,
-          },
-        }],
+        test: /\.(png|jpe?g|gif|ico)$/i,
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+        },
       },
     ],
   },
