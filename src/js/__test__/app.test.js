@@ -1,6 +1,5 @@
-import number from '../app';
+import sum from '../app';
 
-test('Should be 2 = 2', () => {
-  const expected = 2;
-  expect(number).toBe(expected);
+test('Should be 1+2=3', () => {
+  expect(sum(1, 2)).toBe(3);
 });

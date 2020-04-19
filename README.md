@@ -1,7 +1,3 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/xqpvtu79vq6b7pg0/branch/master?svg=true)](https://ci.appveyor.com/project/CarolineFell/ahj-homeworks-env/branch/master)
-
----
-
 **Важно**: все задачи к данной лекции можно выполнить в виде одного репозитория (т.е. допускается не делать отдельные репозитории на каждую задачу).
 
 ---

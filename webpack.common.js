@@ -1,11 +1,30 @@
-/* eslint-disable import/no-extraneous-dependencies */
 const path = require('path');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
+  entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
+    filename: 'app.bundle.js',
+  },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+      filename: './index.html',
+    }),
+    new CopyPlugin([
+      {
+        from: './src/img/', to: 'img/',
+      },
+    ]),
+  ],
+  devServer: {
+    port: 9000,
   },
   module: {
     rules: [
@@ -17,6 +36,13 @@ module.exports = {
         },
       },
       {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader, 'css-loader',
+        ],
+      },
+
+      {
         test: /\.html$/,
         use: [
           {
@@ -25,29 +51,29 @@ module.exports = {
         ],
       },
       {
-        test: /\.css$/,
+        test: /\.(png)$/,
         use: [
-          MiniCssExtractPlugin.loader, 'css-loader',
+          {
+            loader: 'file-loader',
+            options: {
+              esModule: false,
+              name: 'img/[name].[ext]',
+            },
+          },
         ],
       },
       {
-        test: /\.(png|jpe?g|gif|ico)$/i,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]',
-        },
+        test: /\.(txt)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              esModule: false,
+              name: '[name].[ext]',
+            },
+          },
+        ],
       },
     ],
   },
-  plugins: [
-    new HtmlWebPackPlugin({
-      template: './src/index.html',
-      filename: './index.html',
-      favicon: 'src/favicon.ico',
-    }),
-    new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css',
-    }),
-  ],
 };
